@@ -78,8 +78,8 @@ class Admin extends ActiveRecord {
         $resultado_user = Admin::consultarSQL($query);
         
         $_SESSION['user'] = $resultado_user[0]->nombre . " " . $resultado_user[0]->paterno . " " . $resultado_user[0]->materno;
-       
-        if($this->email == 'prepa2.webmaster@gmail.com') {
+     
+        if($this->empleado == '819545') {
             header('Location: /admin');
         } else {
             header('Location: /registro/crear');
