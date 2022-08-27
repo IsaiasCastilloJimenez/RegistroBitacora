@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\ActiveRecord;
 use Model\Blog;
 use MVC\Router;
 use Model\Propiedad;
@@ -10,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class PaginasController {
     public static function index(Router $router) {
-        $propiedades = Propiedad::get(3);
+        $propiedades = ActiveRecord::get(3);
         $inicio = true;
         $resultado = $_GET['resultado'] ?? null;
 
