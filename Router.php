@@ -22,20 +22,18 @@ class Router {
         //Arreglo de rutas protegidas..
         $rutas_protegidas = ['/admin','/propiedades/crear', '/vendedores/crear', '/entradas_blog/crear', '/propiedades/actualizar', '/vendedores/actualizar', '/entradas_blog/actualizar', '/propiedades/eliminar', '/vendedores/eliminar', '/entradas_blog/eliminar', 'registro/crear',  'registro/actualizar',  'registro/eliminar', 'usuario/crear',  'usuario/actualizar',  'usuario/eliminar'];
 
-        // $urlActual = $_SERVER['REQUEST_URI'] === '' ?? '/' : $_SERVER['REQUEST_URI'];
-        if(isset($_SERVER['PATH_INFO'])) {
-            $urlActual = $_SERVER['PATH_INFO'] ?? '/';
-        } else {
-            $urlActual = $_SERVER['REQUEST_URI'] === '' ? '/' : $_SERVER['REQUEST_URI'];
-        }
+        $urlActual = ($_SERVER['REQUEST_URI'] === '') ? '/' :  $_SERVER['REQUEST_URI'] ;
+    
         $metodo = $_SERVER['REQUEST_METHOD'];
+        //dividimos la URL actual cada vez que exista un '?' eso indica que se están pasando variables por la url
+        $splitURL = explode('?', $urlActual);
         
-        if($metodo === 'GET') {
-            $fn = $this->rutasGET[$urlActual] ?? null;
+        if ($metodo === 'GET') {
+            $fn = $this->rutasGET[$splitURL[0]] ?? null; //$splitURL[0] contiene la URL sin variables 
         } else {
-            
-            $fn = $this->rutasPOST[$urlActual] ?? null;
+          $fn = $this->rutasPOST[$splitURL[0]] ?? null;
         }
+        
         //Proteger las rutas
         if(in_array($urlActual, $rutas_protegidas) && !$auth) {
             header('Location: /');
