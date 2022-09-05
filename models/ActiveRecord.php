@@ -192,8 +192,7 @@ class ActiveRecord {
 
    //Obtiene determinado número de registros
    public static function get($cantidad) {
-    $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
-   
+    $query = "SELECT * FROM ". static::$tabla ." LIMIT " . $cantidad;   
 
     $resultado = self::consultarSQL($query);
     return $resultado;
